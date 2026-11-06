@@ -83,4 +83,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (document.getElementById('articleBox')) renderArticle();
   });
   if (document.getElementById('researchGrid')) renderIndex();
+  if (document.getElementById('postList')) renderBlog();
+  if (document.getElementById('articleBox')) renderArticle();
 });
