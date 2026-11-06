@@ -29,7 +29,7 @@
 **Interfaces:**
 - Produces: stdout 输出 `verify: 17 badges + 2 icon rows, fails=0`，随后在 `-----BEGIN MARKDOWN-----` / `-----END MARKDOWN-----` 标记间输出最终 markdown 片段（Task 2 的 new_string 即此内容）
 
-- [ ] **Step 1: 写入脚本**
+- [x] **Step 1: 写入脚本**
 
 ```python
 #!/usr/bin/env python3
@@ -91,7 +91,7 @@ print("\n".join(lines))
 print("-----END MARKDOWN-----")
 ```
 
-- [ ] **Step 2: 运行并验证**
+- [x] **Step 2: 运行并验证**
 
 Run: `python3 /tmp/gen_badges.py`
 Expected: 首行 `verify: 17 badges + 2 icon rows, fails=0`（任何 FAIL 或 fails>0 → 停止并上报，不进入 Task 2）
@@ -106,7 +106,7 @@ Expected: 首行 `verify: 17 badges + 2 icon rows, fails=0`（任何 FAIL 或 fa
 **Interfaces:**
 - Consumes: Task 1 的 `fails=0` 结论与本任务给出的精确 old_string / new_string
 
-- [ ] **Step 1: 执行唯一一次 Edit**
+- [x] **Step 1: 执行唯一一次 Edit**
 
 old_string（当前 README 第 7-15 行，表格整段）:
 
@@ -154,7 +154,7 @@ new_string（与 Task 1 脚本 MARKDOWN 标记间输出完全一致；URL 已实
 ![](https://skillicons.dev/icons?i=mysql,redis,kafka,linux,git)
 ```
 
-- [ ] **Step 2: 校验未动区域逐字一致**
+- [x] **Step 2: 校验未动区域逐字一致**
 
 ```bash
 diff <(git show HEAD:README.md | sed -n '1,5p') <(sed -n '1,5p' README.md) && echo HEAD-OK
@@ -163,10 +163,10 @@ diff <(git show HEAD:README.md | sed -n '/^## 📌/,$p') <(sed -n '/^## 📌/,$p
 
 Expected: `HEAD-OK` 与 `TAIL-OK`（任一 diff 有输出 → Edit 误伤，回滚重查）
 
-- [ ] **Step 3: 从 README 反向验收 URL**
+- [x] **Step 3: 从 README 反向验收 URL**
 
 ```bash
-grep -c '!\[\](' README.md          # 期望 19（17 徽章 + 2 图标行）
+grep -o '!\[\](' README.md | wc -l   # 期望 19（17 徽章 + 2 图标行的图片引用数）
 grep -c '^|' README.md              # 期望 0（原表格无残留，spec 验收 #4）
 grep -o 'https://[^)]*' README.md | sort -u | wc -l   # 期望 19（无重复无缺失）
 grep -o 'https://[^)]*' README.md | while read -r u; do
@@ -175,9 +175,9 @@ grep -o 'https://[^)]*' README.md | while read -r u; do
 done; echo CHECK-DONE
 ```
 
-Expected: `19`、`19`、仅 `CHECK-DONE`（无 BROKEN 行）
+Expected: `19`、`0`、`19`、仅 `CHECK-DONE`（无 BROKEN 行）
 
-- [ ] **Step 4: 提交**
+- [x] **Step 4: 提交**
 
 ```bash
 git add README.md
@@ -186,6 +186,6 @@ git commit -m "feat: visualize research directions and tech stack in profile rea
 Co-Authored-By: Claude Code <noreply@anthropic.com>"
 ```
 
-- [ ] **Step 5: 收尾报告**
+- [x] **Step 5: 收尾报告**
 
 告知用户：改动已提交（未 push）；`git push` 后约 1-2 分钟在 https://github.com/coolexp 生效；旧表格未删任何关键词，仅换呈现形式。
